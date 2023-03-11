@@ -1,0 +1,10 @@
+<div class="card my-4">
+    <div class="card-body">
+        <h3 class="card-title">{{todo.title}}</h3>
+        <p class="card-text">{{todo.content}}</p>
+        <!-- When the following button is clicked then the click event is triggered 
+            which calls the sendSelectedTodoForDeletion method, passing the todo on 
+            which the delete button is clicked. -->
+        <a href="#" class="btn btn-danger" (click)="sendSelectedTodoForDeletion(todo)">Delete</a>
+    </div>
+</div>

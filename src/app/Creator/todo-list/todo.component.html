@@ -1,0 +1,10 @@
+<div>
+    <p>This is the main todo section</p>
+    <div *ngFor="let todo of listOfTodos">
+        <!--
+            When the custom defined capturedTodoForDeletion event is triggered, the following deleteSelectedTodo method is called,
+            which actually deleted the captured/selected todo object from the original stored todo list.
+        -->
+        <app-todo-item [todo]="todo" (capturedTodoForDeletion)="deleteSelectedTodo($event)"></app-todo-item>
+    </div>
+</div>
