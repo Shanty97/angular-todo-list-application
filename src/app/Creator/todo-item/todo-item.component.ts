@@ -11,6 +11,8 @@ export class TodoItemComponent {
 
 @Input() todo: Todo
 @Output() capturedTodoForDeletion: EventEmitter<Todo> = new EventEmitter()
+@Output() capturedTodoForStatusUpdate: EventEmitter<Todo> = new EventEmitter()
+
 
 /**
  * This method is called when a event is triggered.
@@ -26,6 +28,11 @@ export class TodoItemComponent {
 sendSelectedTodoForDeletion(todo: Todo) {
   console.log(todo.title)
   this.capturedTodoForDeletion.emit(todo)
+}
+
+onTaskCompleted(completedTodo: Todo, todo: Event) {
+  completedTodo.active = false
+  this.capturedTodoForStatusUpdate.emit(completedTodo)
 }
 
 }

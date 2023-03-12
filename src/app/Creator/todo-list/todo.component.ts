@@ -9,33 +9,37 @@ import { Todo } from '../../Todo'
 export class TodoComponent {
 
   listOfTodos: Todo[]
+  fromTodoStorage: string
 
   constructor() {
-    this.listOfTodos = [
-      {
-        srno: 1,
-        title: "First Dummy Task",
-        content: "Drink 2L water",
-        active: true  
-      },
-      {
-        srno: 2,
-        title: "Second Dummy Task",
-        content: "Go for a walk",
-        active: true  
-      },
-      {
-        srno: 3,
-        title: "Third Dummy Task",
-        content: "Take a nap",
-        active: true  
-      }
-    ]
+    this.listOfTodos = []
+    this.fromTodoStorage = localStorage.getItem("todoStorage")
+    if (this.fromTodoStorage != null) {
+      this.listOfTodos = JSON.parse(this.fromTodoStorage)
+    } else {
+      this.listOfTodos = []
+    }
   }
 
-  deleteSelectedTodo(todo: Todo) {
+deleteSelectedTodo(todo: Todo) {
   console.log(todo.title, "deleted !")
   this.listOfTodos.splice(this.listOfTodos.indexOf(todo), 1)
+  this.persistTodoListToStorage(this.listOfTodos)
+}
+
+addNewTodo(todo: Todo) {
+  console.log(todo.title, todo.content, "from todo-list")
+  this.listOfTodos.push(todo)
+  this.persistTodoListToStorage(this.listOfTodos)
+}
+
+updateTodoStatus(todo: Todo) {
+  this.listOfTodos[this.listOfTodos.indexOf(todo)].active = !this.listOfTodos[this.listOfTodos.indexOf(todo)]
+  this.persistTodoListToStorage(this.listOfTodos)
+}
+
+persistTodoListToStorage(listOfTodosToPersist: Todo[]) {
+  localStorage.setItem("todoStorage", JSON.stringify(listOfTodosToPersist))
 }
 
 }
